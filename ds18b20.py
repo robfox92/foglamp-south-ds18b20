@@ -60,8 +60,7 @@ def plugin_info():
         'mode': 'poll', ''
         'type': 'south',
         'interface': '1.0',
-        'config': _DEFAULT_CONFIG
-    }
+        'config': _DEFAULT_CONFIG}
 
 
 def readFromSensor(sensorID):
