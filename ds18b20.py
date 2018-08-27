@@ -83,23 +83,23 @@ def plugin_init(config):
     Raises:
       ValueError: If there is no temperature found in file or if the file fails the CRC check
     """
-    sensorFilePath = "/sys/bus/w1/devices/"+sensorID+"/w1_slave"
-    value = ""
-    with open(sensorFilePath,'r') as sensorFile:
-        sensorLines = sensorFile.readlines()
+        sensorFilePath = "/sys/bus/w1/devices/"+sensorID+"/w1_slave"
+        value = ""
+        with open(sensorFilePath,'r') as sensorFile:
+            sensorLines = sensorFile.readlines()
     # Check to see if the CRC check passes, otherwise raise error
     # only supports temperature based w1_slave returning values in 1000ths of 1 degree
-    if sensorLines[0].endswith("YES"):
-        tempStart = sensorLines[1].find("t=")
-        if tempStart != -1:
-            temp = sensorLines[1][tempStart+2:]
-            value = float(temp)/1000
+        if sensorLines[0].endswith("YES"):
+            tempStart = sensorLines[1].find("t=")
+            if tempStart != -1:
+                temp = sensorLines[1][tempStart+2:]
+                value = float(temp)/1000
+            else:
+                raise ValueError('Temperature not found in file')
         else:
-            raise ValueError('Temperature not found in file')
-    else:
-        raise ValueError('File Fails CRC Check')
+            raise ValueError('File Fails CRC Check')
 
-    return value
+        return value
 
     handle = config
 
