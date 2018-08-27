@@ -73,18 +73,7 @@ def plugin_init(config):
         handle: JSON object to be used in future calls to the plugin
     Raises:
     """
-
-    handle = config
-
-    # Split the IDs out to handles
-    handle['sensorIDs'] = []
-    for sns in glob.glob('/sys/bus/w1/devices/'+'28*'):
-        handle['sensorIDs'].append(sns.split('/')[-1])
-
-
-    return handle
-
-def readFromSensor(sensorID):
+    def readFromSensor(sensorID):
     """ Parses the file associated with a given sensor ID
 
     Args:
@@ -111,6 +100,18 @@ def readFromSensor(sensorID):
         raise ValueError('File Fails CRC Check')
 
     return value
+
+    handle = config
+
+    # Split the IDs out to handles
+    handle['sensorIDs'] = []
+    for sns in glob.glob('/sys/bus/w1/devices/'+'28*'):
+        handle['sensorIDs'].append(sns.split('/')[-1])
+
+
+    return handle
+
+
 
 def plugin_poll(handle):
     """ Extracts data from the sensor and returns it in a JSON document as a Python dict.
