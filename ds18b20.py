@@ -183,4 +183,4 @@ def plugin_shutdown(handle):
     """
     # disconnect the communication with the thing
     # cleanup
-    _LOGGER.info('<name> poll plugin shut down.')
+    _LOGGER.info('ds18b210 poll plugin shut down.')
