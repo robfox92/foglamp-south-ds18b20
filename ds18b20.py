@@ -39,11 +39,6 @@ _DEFAULT_CONFIG = {
         'type': 'integer',
         'default': '1000'
     }
-    'deviceList':{
-        'description':'List of w1_slave devices (comma-separated)',
-        'type':'string',
-        'default':''
-    }
 
 }
 
