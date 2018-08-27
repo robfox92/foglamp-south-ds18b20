@@ -64,15 +64,15 @@ def plugin_info():
 
 
 def readFromSensor(sensorID):
-        """ Parses the file associated with a given sensor ID
+    """ Parses the file associated with a given sensor ID
 
-        Args:
-          sensorID: the GUID of the sensor
-        Returns:
-          value: read value from sensor
-        Raises:
-          ValueError: If there is no temperature found in file or if the file fails the CRC check
-        """
+    Args:
+      sensorID: the GUID of the sensor
+    Returns:
+      value: read value from sensor
+    Raises:
+      ValueError: If there is no temperature found in file or if the file fails the CRC check
+    """
     sensorFilePath = "/sys/bus/w1/devices/"+sensorID+"/w1_slave"
     value = ""
     with open(sensorFilePath,'r') as sensorFile:
