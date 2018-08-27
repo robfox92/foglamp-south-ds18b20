@@ -15,6 +15,7 @@ import random
 import uuid
 import re
 import os
+import glob
 
 os.system('modprobe w1-gpio')
 os.system('modprobe w1-therm')
@@ -79,6 +80,13 @@ def plugin_init(config):
     """
 
     handle = config
+
+    # Split the IDs out to handles
+    handle['sensorIDs'] = []
+    for sns in glob.glob('/sys/bus/w1/devices/'+'28*'):
+        handle['sensorIDs'].append(sns.split('/')[-1])
+
+
     return handle
 
 def readFromSensor(sensorID):
@@ -129,7 +137,7 @@ def plugin_poll(handle):
                 'asset': 'poll_template',
                 'timestamp': timestamp,
                 'key': str(uuid.uuid4()),
-                'readings':  {'value': random.randint(0, 1000)}
+                'readings':  { sensor:readFromSensor for sensor in handle['sensorIDs']}
         }
 
     except Exception as ex:
