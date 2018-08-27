@@ -64,7 +64,7 @@ def plugin_info():
     }
 
 
- def readFromSensor(sensorID):
+def readFromSensor(sensorID):
         """ Parses the file associated with a given sensor ID
 
         Args:
