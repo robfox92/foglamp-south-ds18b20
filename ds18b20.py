@@ -30,9 +30,9 @@ __version__ = "${VERSION}"
 
 _DEFAULT_CONFIG = {
     'plugin': {
-         'description': 'FogLAMP South plugin to pull data from a w1-gpio device on a Raspberry Pi',
+         'description': 'Plugin name',
          'type': 'string',
-         'default': 'w1-gpio'
+         'default': 'ds18b20'
     },
     'pollInterval': {
         'description': 'The interval between polling calls (in milliseconds)',
@@ -55,7 +55,7 @@ def plugin_info():
     """
 
     return {
-        'name': 'w1-gpio Plugin',
+        'name': 'ds18b20 Plugin',
         'version': '1.0',
         'mode': 'poll', ''
         'type': 'south',
@@ -164,7 +164,7 @@ def plugin_reconfigure(handle, new_config):
         # write necessary code to stop the plugin here
         new_handle = plugin_init(new_config)
         new_handle['restart'] = 'yes'
-        _LOGGER.info("Restarting <name> plugin due to change in configuration keys [{}]".format(', '.join(diff)))
+        _LOGGER.info("Restarting ds18b20 plugin due to change in configuration keys [{}]".format(', '.join(diff)))
     else:
         new_handle = copy.deepcopy(handle)
         new_handle['restart'] = 'no'
