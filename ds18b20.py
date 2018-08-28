@@ -134,7 +134,7 @@ def plugin_poll(handle):
                 'asset': 'poll_template',
                 'timestamp': timestamp,
                 'key': str(uuid.uuid4()),
-                'readings':  { sensor:readFromSensor for sensor in handle['sensorIDs']}
+                'readings':  { sensor:readFromSensor(sensor) for sensor in handle['sensorIDs']}
         }
 
     except Exception as ex:
