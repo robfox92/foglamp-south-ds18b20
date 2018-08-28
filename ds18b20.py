@@ -16,6 +16,7 @@ import uuid
 import re
 import os
 import glob
+import time
 
 os.system('modprobe w1-gpio')
 os.system('modprobe w1-therm')
@@ -133,7 +134,7 @@ def plugin_poll(handle):
 
     try:
         data = {
-                'asset': 'poll_template',
+                'asset': 'ds18b20',
                 'timestamp': timestamp,
                 'key': str(uuid.uuid4()),
                 'readings':  { sensor:readFromSensor(sensor) for sensor in handle['sensorIDs']}
@@ -187,4 +188,4 @@ def plugin_shutdown(handle):
     """
     # disconnect the communication with the thing
     # cleanup
-    _LOGGER.info('ds18b210 poll plugin shut down.')
+    _LOGGER.info('ds18b20 poll plugin shut down.')
