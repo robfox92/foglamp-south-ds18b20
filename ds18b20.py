@@ -16,7 +16,7 @@ import uuid
 import re
 import os
 import glob
-import time
+
 
 os.system('modprobe w1-gpio')
 os.system('modprobe w1-therm')
@@ -81,7 +81,8 @@ def readFromSensor(sensorID):
 
     # Check to see if the CRC check passes, otherwise raise error
     # only supports temperature based w1_slave returning values in 1000ths of 1 degree C
-    if sensorLines[0].endswith("YES"):
+    # Need to strip newlines, couls also alter the test
+    if sensorLines[0].strip("\n").endswith("YES"):
         tempStart = sensorLines[1].find("t=")
         if tempStart != -1:
             temp = sensorLines[1][tempStart+2:]
