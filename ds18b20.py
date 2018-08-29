@@ -140,7 +140,7 @@ def plugin_poll(handle):
         handle['sensorList'] = newglob
 	    handle['sensorIDs'] = []
 	    for sns in newglob:
-	        handle['sensorIDs'].append(sns.split('/')[-1])
+            handle['sensorIDs'].append(sns.split('/')[-1])
     try:
         data = {
                 'asset': 'ds18b20',
