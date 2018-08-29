@@ -110,6 +110,7 @@ def plugin_init(config):
 
     # Split the IDs out to handles
     handle['sensorIDs'] = []
+    handle['sensorList'] = glob.glob('/sys/bus/w1/devices/'+'28*')
     for sns in glob.glob('/sys/bus/w1/devices/'+'28*'):
         handle['sensorIDs'].append(sns.split('/')[-1])
 
@@ -132,6 +133,15 @@ def plugin_poll(handle):
     """
 
     timestamp = str(datetime.now(tz=timezone.utc))
+
+    # Update the sensor IDs every time the thing polls
+    if handle['sensorList'] != glob.glob('/sys/bus/w1/devices/'+'28*'):
+    	handle['sensorList'] = glob.glob('/sys/bus/w1/devices/'+'28*')
+	    handle['sensorIDs'] = []
+	    for sns in glob.glob('/sys/bus/w1/devices/'+'28*'):
+	        handle['sensorIDs'].append(sns.split('/')[-1])
+
+
 
     try:
         data = {
