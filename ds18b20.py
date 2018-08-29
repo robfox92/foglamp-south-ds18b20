@@ -138,8 +138,8 @@ def plugin_poll(handle):
     newglob = glob.glob('/sys/bus/w1/devices/'+'28*')
     if handle['sensorList'] != newglob:
         handle['sensorList'] = newglob
-	    handle['sensorIDs'] = []
-	    for sns in newglob:
+        handle['sensorIDs'] = []
+        for sns in newglob:
             handle['sensorIDs'].append(sns.split('/')[-1])
     try:
         data = {
