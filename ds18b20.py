@@ -136,11 +136,17 @@ def plugin_poll(handle):
 
     # Update the sensor IDs every time the thing polls
     newglob = glob.glob('/sys/bus/w1/devices/'+'28*')
+    
     if handle['sensorList'] != newglob:
-        handle['sensorList'] = newglob
-        handle['sensorIDs'] = []
+        newHandle = copy.deepcopy(handle)
+        newHandle['sensorList'] = newglob
+        newHandle['sensorIDs'] = []
+    
         for sns in newglob:
-            handle['sensorIDs'].append(sns.split('/')[-1])
+            newHandle['sensorIDs'].append(sns.split('/')[-1])
+
+        handle = plugin_reconfigure(handle, newHandle)
+
     try:
         data = {
                 'asset': 'ds18b20',
@@ -172,9 +178,13 @@ def plugin_reconfigure(handle, new_config):
     # Find diff between old config and new config
     diff = dict()  # get diff(handle, new_config)
 
+    if handle['sensorIDs'] != new_config['sensorIDs']:
+        diff['sensorIDs'] = {"old":handle['sensorIDs'], "new":new_config['sensorIDs']}
+
     # Plugin should re-initialize and restart if key configuration is changed
     # e.g. port / uri / management_host or BLE address etc.
-    if 'port' in diff or 'uri' in diff or 'management_host' in diff:
+    if 'port' in diff or 'uri' in diff or 'management_host' in diff or "sensorIDs" in diff:
+        plugin_shutdown(handle)
         # write necessary code to stop the plugin here
         new_handle = plugin_init(new_config)
         new_handle['restart'] = 'yes'
@@ -195,6 +205,5 @@ def plugin_shutdown(handle):
     Returns:
     Raises:
     """
-    # disconnect the communication with the thing
-    # cleanup
+
     _LOGGER.info('ds18b20 poll plugin shut down.')
