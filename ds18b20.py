@@ -156,8 +156,8 @@ def plugin_poll(handle):
         }
 
     except Exception as ex:
-        raise exceptions.DataRetrievalError(ex)
-
+        #raise exceptions.DataRetrievalError(ex)
+        _LOGGER.info("Ran in to following condition:"+ex)
     return data
 
 
