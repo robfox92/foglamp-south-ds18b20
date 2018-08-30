@@ -89,11 +89,13 @@ def readFromSensor(sensorID):
             value = float(temp)/1000
         else:
             err = "Temperature not found in file" + sensorFilePath
-            raise ValueError(err)
+            #raise ValueError(err)
+            _LOGGER.info("Ran in to Exception: "+err)
     else:
         err = "File fails CRC Check" + sensorFilePath
-        raise ValueError(err)
-
+        #raise ValueError(err)
+        _LOGGER.info("Ran in to Exception: "+err)
+        
     return value
 
 
