@@ -95,7 +95,8 @@ def readFromSensor(sensorID):
         err = "File fails CRC Check" + sensorFilePath
         #raise ValueError(err)
         _LOGGER.info("Ran in to Exception: "+err)
-        
+    if value = '':
+    	__LOGGER.error("Error: sensor",sensorID,"returned value ''")
     return value
 
 
