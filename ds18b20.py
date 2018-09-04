@@ -116,7 +116,7 @@ def plugin_init(config):
     for sns in glob.glob('/sys/bus/w1/devices/'+'28*'):
         handle['sensorIDs'].append(sns.split('/')[-1])
 
-
+    _LOGGER.info("Plugin configured with the following sensor IDs:"+handle['sensorIDs'])
     return handle
 
 
